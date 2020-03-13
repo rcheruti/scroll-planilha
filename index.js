@@ -3,8 +3,8 @@
     function ScrollPlanilhaVerificarIdx(arr, scrollTop) {
         if( scrollTop < arr[0].acumulado ) return 0;
         for(var i in arr) {
-            if( arr[i].acumulado > scrollTop ) {
-                return i -1;
+            if( arr[i].corte > scrollTop ) {
+                return i ;
             }
         }
         return arr.length -1; // retornar último item
@@ -24,15 +24,16 @@
         for(var i = 0; i < linhas.length; i++) { // verificar o tamanho de cada item da tabela
             var temp = getComputedStyle( linhas[i] );
             var height = parseFloat( temp.height );
-            bkTamanhos.push({ height: height, acumulado: acumulado });
+            bkTamanhos.push({ height: height, acumulado: acumulado, corte: acumulado + height/2 +1 });
             acumulado += height;
         }
 
         bkIdx = ScrollPlanilhaVerificarIdx( bkTamanhos, bkScroll );
         ScrollPlanilhaPosicionar( bkTamanhos, bkIdx, elemento );
 
-        elemento.addEventListener('scroll', function(ev) {
+        function ScrollPlanilhaEvento() {
             var diff = elemento.scrollTop - bkScroll;
+            console.log(diff);
             if( diff === 0 ) return; // nenhum scroll aconteceu
             if( Math.abs(diff) < 6 ) { // um giro curto aconteceu
                 if( diff < 0 ) bkIdx--;
@@ -43,6 +44,11 @@
                 bkIdx = ScrollPlanilhaVerificarIdx( bkTamanhos, elemento.scrollTop );
                 bkScroll = ScrollPlanilhaPosicionar( bkTamanhos, bkIdx, elemento );
             }
+        }
+        var bkEvento = null;
+        elemento.addEventListener('scroll', function() {
+            if( bkEvento ) clearTimeout( bkEvento );
+            bkEvento = setTimeout( ScrollPlanilhaEvento, 4 );
         });
     }
 
