@@ -1,0 +1,69 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
+* {
+    box-sizing: border-box;;
+}
+
+.quadro {
+    padding: 20px;
+    height: 300px;
+    overflow: auto;
+}
+
+/* =========  Estilos para a Tabela  ===================== */
+
+table.scroll {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+table.scroll * {
+    box-sizing: border-box;;
+}
+
+table.scroll thead, table.scroll tbody, table.scroll tr {
+    display: block;
+}
+table.scroll thead::after, table.scroll tbody::after, table.scroll tr::after {
+    content: ' ';
+    clear: both;
+    display: block;
+}
+
+table.scroll thead {
+    height: 35px; /* necessário para que possamos calcular o tamanho do corpo da tabela */
+}
+table.scroll thead tr {
+    background: rgb(15, 108, 214);
+    color: #fff;
+}
+table.scroll thead tr th {
+    padding: 8px 15px;
+    float: left;
+    width: 20%;
+}
+
+table.scroll tbody {
+    height: calc( 27px * 5 ); /* configurar com o tamanho da linha básica * quantidade de linhas visíveis */
+    overflow: auto;
+}
+table.scroll tbody tr {
+    color: #333;
+    min-height: 27px; /* tamanho da linha básica, necessário para que a última linha esteja disponível corretamente */
+}
+table.scroll tbody tr td {
+    padding: 4px 10px;
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+table.scroll tbody tr:nth-of-type(even) {
+    background: #efefef;
+}
