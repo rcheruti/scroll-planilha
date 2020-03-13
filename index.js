@@ -48,7 +48,7 @@
         var bkEvento = null;
         elemento.addEventListener('scroll', function() {
             if( bkEvento ) clearTimeout( bkEvento );
-            bkEvento = setTimeout( ScrollPlanilhaEvento, 4 );
+            bkEvento = setTimeout( ScrollPlanilhaEvento, 25 );
         });
     }
 
