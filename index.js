@@ -1,6 +1,7 @@
 (function(){
 
     function ScrollPlanilhaVerificarIdx(arr, scrollTop) {
+        if( scrollTop < arr[0].acumulado ) return 0;
         for(var i in arr) {
             if( arr[i].acumulado > scrollTop ) {
                 return i -1;
@@ -36,6 +37,7 @@
             if( Math.abs(diff) < 6 ) { // um giro curto aconteceu
                 if( diff < 0 ) bkIdx--;
                 else bkIdx++;
+                if( bkIdx < 0 ) bkIdx = 0;
                 bkScroll = ScrollPlanilhaPosicionar( bkTamanhos, bkIdx, elemento );
             } else { // um giro longo aconteceu
                 bkIdx = ScrollPlanilhaVerificarIdx( bkTamanhos, elemento.scrollTop );
